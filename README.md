@@ -46,4 +46,6 @@ python -m streamlit run app.py
    ```
 5. Deploy 🚀
 
+Deployed at https://mt-movie-recommendation-system.streamlit.app/
+
 > The app works without a TMDB API key — posters just won't load.
