@@ -1,25 +1,49 @@
 # 🎬 Movie Recommendation System
 
-A machine learning–based movie recommendation system that suggests movies to users based on similarity between movie features.
+Content-based movie recommender using TF-IDF + cosine similarity on the TMDB 5000 dataset, with poster images fetched live from the TMDB API.
 
-## 🔍 Project Overview
-This project implements a content-based movie recommender using cosine similarity. Movie metadata is processed and transformed into feature vectors to identify similar movies.
+## Setup
 
-## ⚙️ Tech Stack
-- Python
-- Pandas, NumPy
-- Scikit-learn
-- NLP (CountVectorizer)
-- Streamlit (UI)
-
-## 🧠 Recommendation Approach
-- Text feature extraction from movie metadata
-- Vectorization using CountVectorizer
-- Similarity computation using cosine similarity
-- Top-N movie recommendations
-
-## ▶️ How to Run
+### 1. Install dependencies
 ```bash
 pip install -r requirements.txt
-cd src
-streamlit run app.py
+```
+
+### 2. Add the TMDB datasets
+Download from Kaggle ([TMDB 5000 Movie Dataset](https://www.kaggle.com/datasets/tmdb/tmdb-movie-metadata)) and place in `data/`:
+```
+data/
+├── tmdb_5000_movies.csv
+└── tmdb_5000_credits.csv
+```
+
+### 3. Build the model (run once)
+```bash
+python src/model.py
+```
+This generates `data/movies.pkl` and `data/similarity.pkl`. Commit both files to your repo.
+
+### 4. Add your TMDB API key
+Create `.streamlit/secrets.toml`:
+```toml
+TMDB_API_KEY = "your_key_here"
+```
+Get a free key at https://www.themoviedb.org/settings/api
+
+### 5. Run locally
+```bash
+python -m streamlit run app.py
+```
+
+## Deploy to Streamlit Cloud
+
+1. Push the repo to GitHub (including `data/movies.pkl` and `data/similarity.pkl`)
+2. Connect the repo on [share.streamlit.io](https://share.streamlit.io)
+3. Set **Main file path** to `app.py`
+4. Under **Advanced settings → Secrets**, add:
+   ```toml
+   TMDB_API_KEY = "your_key_here"
+   ```
+5. Deploy 🚀
+
+> The app works without a TMDB API key — posters just won't load.
